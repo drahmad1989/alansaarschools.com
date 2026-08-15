@@ -1,0 +1,20 @@
+# robots.txt for Al-Ansaar Schools
+User-agent: *
+Allow: /
+Sitemap: https://alansaarschools.com/sitemap.xml
+Disallow: /admin/
+Disallow: /config/
+Disallow: /includes/
+Disallow: /?page=
+Allow: /about
+Allow: /academics
+Allow: /admissions
+Allow: /contact
+Allow: /gallery
+Allow: /news
+Allow: /faqs
+Allow: /islamic-education
+Allow: /online-education
+Allow: /blog
+Allow: /best-islamic-school-kasur
+Allow: /digital-skills-students-pakistan

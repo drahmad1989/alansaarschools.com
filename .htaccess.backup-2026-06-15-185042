@@ -1,0 +1,111 @@
+# Al-Ansaar Schools - .htaccess (SEO & Performance)
+RewriteEngine On
+
+# Force HTTPS
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Force www to non-www
+RewriteCond %{HTTP_HOST} ^www\.alansaarschools\.com$ [NC]
+RewriteRule ^(.*)$ https://alansaarschools.com/$1 [L,R=301]
+
+# CLEAN URL REWRITING
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^about/?$ index.php?page=about [L,QSA]
+RewriteRule ^academics/?$ index.php?page=academics [L,QSA]
+RewriteRule ^admissions/?$ index.php?page=admissions [L,QSA]
+RewriteRule ^contact/?$ index.php?page=contact [L,QSA]
+RewriteRule ^gallery/?$ index.php?page=gallery [L,QSA]
+RewriteRule ^news/?$ index.php?page=news [L,QSA]
+RewriteRule ^faqs/?$ index.php?page=faqs [L,QSA]
+RewriteRule ^downloads/?$ index.php?page=downloads [L,QSA]
+RewriteRule ^chairman-message/?$ index.php?page=chairman-message [L,QSA]
+RewriteRule ^vision-mission/?$ index.php?page=vision-mission [L,QSA]
+RewriteRule ^why-alansaar/?$ index.php?page=why-alansaar [L,QSA]
+RewriteRule ^skills-program/?$ index.php?page=skills-program [L,QSA]
+RewriteRule ^student-life/?$ index.php?page=student-life [L,QSA]
+RewriteRule ^fee-structure/?$ index.php?page=fee-structure [L,QSA]
+RewriteRule ^islamic-education/?$ index.php?page=islamic-education [L,QSA]
+RewriteRule ^online-education/?$ index.php?page=online-education [L,QSA]
+RewriteRule ^privacy/?$ index.php?page=privacy [L,QSA]
+RewriteRule ^terms/?$ index.php?page=terms [L,QSA]
+RewriteRule ^blog/?$ index.php?page=blog [L,QSA]
+RewriteRule ^best-islamic-school-kasur/?$ index.php?page=best-islamic-school-kasur [L,QSA]
+RewriteRule ^digital-skills-students-pakistan/?$ index.php?page=digital-skills-students-pakistan [L,QSA]
+
+# 301 Redirect old ?page= URLs to clean URLs
+RewriteCond %{THE_REQUEST} \?page=about\s [NC]
+RewriteRule ^ /about? [R=301,L]
+RewriteCond %{THE_REQUEST} \?page=academics\s [NC]
+RewriteRule ^ /academics? [R=301,L]
+RewriteCond %{THE_REQUEST} \?page=admissions\s [NC]
+RewriteRule ^ /admissions? [R=301,L]
+RewriteCond %{THE_REQUEST} \?page=contact\s [NC]
+RewriteRule ^ /contact? [R=301,L]
+RewriteCond %{THE_REQUEST} \?page=gallery\s [NC]
+RewriteRule ^ /gallery? [R=301,L]
+RewriteCond %{THE_REQUEST} \?page=news\s [NC]
+RewriteRule ^ /news? [R=301,L]
+RewriteCond %{THE_REQUEST} \?page=faqs\s [NC]
+RewriteRule ^ /faqs? [R=301,L]
+RewriteCond %{THE_REQUEST} \?page=islamic-education\s [NC]
+RewriteRule ^ /islamic-education? [R=301,L]
+RewriteCond %{THE_REQUEST} \?page=online-education\s [NC]
+RewriteRule ^ /online-education? [R=301,L]
+RewriteCond %{THE_REQUEST} \?page=blog\s [NC]
+RewriteRule ^ /blog? [R=301,L]
+RewriteCond %{THE_REQUEST} \?page=fee-structure\s [NC]
+RewriteRule ^ /fee-structure? [R=301,L]
+RewriteCond %{THE_REQUEST} \?page=skills-program\s [NC]
+RewriteRule ^ /skills-program? [R=301,L]
+RewriteCond %{THE_REQUEST} \?page=student-life\s [NC]
+RewriteRule ^ /student-life? [R=301,L]
+RewriteCond %{THE_REQUEST} \?page=why-alansaar\s [NC]
+RewriteRule ^ /why-alansaar? [R=301,L]
+RewriteCond %{THE_REQUEST} \?page=chairman-message\s [NC]
+RewriteRule ^ /chairman-message? [R=301,L]
+RewriteCond %{THE_REQUEST} \?page=vision-mission\s [NC]
+RewriteRule ^ /vision-mission? [R=301,L]
+RewriteCond %{THE_REQUEST} \?page=downloads\s [NC]
+RewriteRule ^ /downloads? [R=301,L]
+RewriteCond %{THE_REQUEST} \?page=privacy\s [NC]
+RewriteRule ^ /privacy? [R=301,L]
+RewriteCond %{THE_REQUEST} \?page=terms\s [NC]
+RewriteRule ^ /terms? [R=301,L]
+
+# GZIP Compression
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/css text/javascript application/javascript application/json image/svg+xml
+</IfModule>
+
+# Browser Caching
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType image/x-icon "access plus 1 year"
+    ExpiresByType font/woff "access plus 1 year"
+    ExpiresByType font/woff2 "access plus 1 year"
+</IfModule>
+
+# Security Headers
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-XSS-Protection "1; mode=block"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# Block sensitive files
+<FilesMatch "\.(env|log|sql|bak|swp)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+Options -Indexes
+ErrorDocument 404 /index.php?page=404
+AddDefaultCharset UTF-8
